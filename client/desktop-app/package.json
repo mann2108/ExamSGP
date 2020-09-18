@@ -1,18 +1,16 @@
 {
-  "name": "basic-electron-react-boilerplate",
-  "version": "0.7.0",
-  "description": "Minimal and modern react+electron+webpack boilerplate",
-  "author": "Keith Weaver",
-  "homepage": "https://github.com/keithweaver/basic-electron-react-boilerplate",
+  "name": "desktop app",
+  "version": "1.0.0",
+  "description": "desktop app for examinations",
+  "author": "Jeet Mehta, Mann Mehta",
+  "homepage": "https://github.com/Jeet989/ExamSGP/tree/master/client/desktop-app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/keithweaver/basic-electron-react-boilerplate.git"
+    "url": "https://github.com/Jeet989/ExamSGP.git"
   },
   "contributors": [
-    "Phillip Barbiero <https://github.com/pbarbiero>",
-    "Keith Weaver <https://github.com/keithweaver>",
-    "Denys Dovhan <https://github.com/denysdovhan>",
-    "Willy Ovalle <https://github.com/wovalle>"
+    "Jeet Mehta <https://github.com/Jeet989/>",
+    "Mann Mehta <https://github.com/mann2108/>"
   ],
   "license": "MIT",
   "main": "main.js",
