@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Examination System Backend Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jeet989/ExamSGP.git"
+  },
+  "keywords": [
+    "react",
+    "express",
+    "\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D",
+    "\u001b[F\u001b[F\u001b[B\u001b[B\u001b[F\u001b[D\u001b[B\u001b[F\u001b[B\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[Dexpress",
+    "node",
+    "mongodb",
+    "electron"
+  ],
+  "author": "Jeet Mehta, Mann Mehta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jeet989/ExamSGP/issues"
+  },
+  "homepage": "https://github.com/Jeet989/ExamSGP#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
