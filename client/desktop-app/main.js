@@ -27,7 +27,7 @@ function createWindow() {
     indexPath = url.format({
       protocol: 'http:',
       host: 'localhost:4000',
-      pathname: 'index.html',
+      pathname: '/',
       slashes: true
     });
   } else {
