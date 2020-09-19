@@ -4,6 +4,7 @@
   "description": "Examination System Backend Server",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -13,8 +14,6 @@
   "keywords": [
     "react",
     "express",
-    "\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D",
-    "\u001b[F\u001b[F\u001b[B\u001b[B\u001b[F\u001b[D\u001b[B\u001b[F\u001b[B\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[Dexpress",
     "node",
     "mongodb",
     "electron"
@@ -27,5 +26,11 @@
   "homepage": "https://github.com/Jeet989/ExamSGP#readme",
   "devDependencies": {
     "express": "^4.17.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.10.6",
+    "nodemon": "^2.0.4"
   }
 }
