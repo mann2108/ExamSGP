@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React from 'react';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class signup extends React.Component {
 
@@ -18,28 +19,60 @@ export default class signup extends React.Component {
     }
 
     sendValues = (event) => {
+
         event.preventDefault();
 
-        const details = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            email: this.state.email,
-            id: this.state.id,
-            photo: this.state.photo,
-            university: this.state.university,
-            designation: this.state.designation
+        if ((this.state.firstname === '') || (this.state.lastname === '') || (this.state.email === '') || (this.state.id === '') || (this.state.photo === '') || (this.state.university === '') || (this.state.designation === '')) {
+            alert("Enter All Details.. ");
         }
-        // console.log(details)
+        else {
+            if (/^([\w\d](\.)*)+\@([\w\.]{1,2})+(\w)$/.test(this.state.email) && (this.state.firstname.length >= 3) && (this.state.lastname.length >= 3) && (this.state.university.length >= 3) && (this.state.designation.length >= 2)) {
+                const details = {
+                    firstname: this.state.firstname,
+                    lastname: this.state.lastname,
+                    email: this.state.email,
+                    id: this.state.id,
+                    photo: this.state.photo,
+                    university: this.state.university,
+                    designation: this.state.designation
+                }
+                // console.log(details)
 
-        Axios.post("http://localhost:5000/signup", { details })
-            .then(res => {
-                alert(res.data.statusMessage);
-                
-            })
-            .catch((err) => alert(err.data.errMsg));
+                Axios.post("http://localhost:5000/signup", { details })
+                    .then(res => {
+                        // alert(res.data.statusMessage);
+                        console.log(res, "Inside Then");
+                        this.setState({
+                            firstname: '',
+                            lastname: '',
+                            email: '',
+                            id: '',
+                            photo: '',
+                            university: '',
+                            designation: '',
+                        });
+                        Array.from(document.querySelectorAll("input")).forEach(
+                            input => (input.value = '')
+                        );
+
+                    })
+                    .catch((err) => {
+                        alert(err.data.statusMessage);
+                        console.log(err.data.statusMessage, "Inside Catch");
+                    });
+            }
+            else {
+                alert("Enter Proper Details");
+            }
+
+        }
+
+
     }
 
     handleInputChange = e => {
+        let inputValue = e.target.value.trim();
+        // console.log(inputValue)
         this.setState({
             [e.target.name]: e.target.value,
         });
@@ -74,82 +107,60 @@ export default class signup extends React.Component {
 
     render() {
         return (
-            <div style={{ flex: 1 }}>
-                <Form onSubmit={this.sendValues} >
-                    <Form.Row>
-                        <Col>
-                            <Form.Label>First Name&nbsp;</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="First Name"
-                                name="firstname"
-                                value={this.state.firstname}
-                                onChange={this.handleInputChange}
-                            />
+            <div style={{ flex: 1, marginLeft: '1vh' }}>
+                <Form onSubmit={this.sendValues}>
+                    <Row form>
+                        <Col md={2} xs={2}>
+                            <FormGroup>
+                                <Label>First Name</Label>
+                                <Input type="text" name="firstname" onChange={this.handleInputChange} />
+                            </FormGroup>
+                        </Col>
+                        <Col md={2} xs={2}>
+                            <FormGroup>
+                                <Label>Last Name</Label>
+                                <Input type="text" name="lastname" onChange={this.handleInputChange} />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={3}>
+                            <FormGroup>
+                                <Label>Email</Label>
+                                <Input type="email" name="email" onChange={this.handleInputChange} />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={2}>
+                            <FormGroup>
+                                <Label>University Name</Label>
+                                <Input type="text" name="university" onChange={this.handleInputChange} />
+                            </FormGroup>
+                        </Col>
+                        <Col md={2}>
+                            <FormGroup>
+                                <Label>Employee Designation</Label>
+                                <Input type="text" name="designation" onChange={this.handleInputChange} />
+                            </FormGroup>
+                        </Col>
+                    </Row>
 
+                    <Row>
+                        <Col md={2}>
+                            <FormGroup>
+                                <Label>Upload ID Proof</Label>
+                                <Input type="file" name="id" onChange={this.fileUpload} />
+                            </FormGroup>
                         </Col>
-                        <Col>
-                            <Form.Label>Last Name&nbsp;</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Last Name"
-                                name="lastname"
-                                value={this.state.lastname}
-                                onChange={this.handleInputChange}
-                            />
-
+                        <Col md={2}>
+                            <FormGroup>
+                                <Label>Upload Photo</Label>
+                                <Input type="file" name="photo" onChange={this.photoUpload} />
+                            </FormGroup>
                         </Col>
-                    </Form.Row>
-                    <Form.Row>
-                        <Col>
-                            <Form.Control
-                                type="email"
-                                placeholder="Enter Email"
-                                name="email"
-                                value={this.state.email}
-                                onChange={this.handleInputChange}
-                            />
-                        </Col>
-                    </Form.Row>
-                    <Form.Row>
-                        <Col>
-                        <Form.Label>Choose Proper ID Card For Verification</Form.Label>
-                            <Form.Control 
-                            type="file"
-                            onChange={this.fileUpload}
-                            />
-                        </Col>
-                    </Form.Row>
-                    <Form.Row>
-                        <Form.Label>Upload Photo</Form.Label>
-                        <Form.Control
-                        type="file"
-                        onChange={this.photoUpload}
-                        />
-                    </Form.Row>
-                    <Form.Row>
-                        <Col>
-                            <Form.Label>University</Form.Label>
-                            <Form.Control
-                            type="text"
-                            name="university"
-                            value={this.state.university}
-                            onChange={this.handleInputChange}
-                            />
-                        </Col>
-                    </Form.Row>
-                    <Form.Row>
-                        <Col>
-                        <Form.Label>Desgination</Form.Label>
-                        <Form.Control
-                        type="text"
-                        name="designation"
-                        value={this.state.designation}
-                        onChange={this.handleInputChange}
-                        />
-                        </Col>
-                    </Form.Row>
-                    <Button type="submit" variant="primary" >Submit </Button>
+                    </Row>
+                    <Button type="submit" color="primary">Submit</Button>
                 </Form>
             </div>
         )

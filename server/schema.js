@@ -34,6 +34,6 @@ let detailSchema = new Schema({
     },
 });
 
-let details = mongoose.model('final', detailSchema);
+let details = mongoose.model('admindetail', detailSchema);
 
 module.exports = details;

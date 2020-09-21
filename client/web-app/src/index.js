@@ -6,14 +6,14 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Route, Router } from 'react-router-dom';
 import signup from './signup';
 import logout from './logout';
-
+import admin from './admin';
 
 class Start extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <Route exact path={"/"}  component={App} />
-        <Route exact path={"/logout"} component={logout} />
+        <Route exact path={"/admin"} component={admin} />
         <Route exact path={"/signup"} component={signup} />
         
       </BrowserRouter>
