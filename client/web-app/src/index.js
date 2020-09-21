@@ -3,11 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter, Route, Router } from 'react-router-dom';
+import signup from './signup';
+import logout from './logout';
+import admin from './admin';
+
+class Start extends React.Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Route exact path={"/"}  component={App} />
+        <Route exact path={"/admin"} component={admin} />
+        <Route exact path={"/signup"} component={signup} />
+        
+      </BrowserRouter>
+    )
+  }
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Start />,
   document.getElementById('root')
 );
 
