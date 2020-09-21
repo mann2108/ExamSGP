@@ -40,7 +40,7 @@ export default class signup extends React.Component {
 
                 Axios.post("http://localhost:5000/signup", { details })
                     .then(res => {
-                        // alert(res.data.statusMessage);
+                        alert(res.data.statusMessage);
                         console.log(res, "Inside Then");
                         this.setState({
                             firstname: '',

@@ -21,7 +21,7 @@ mainRouter.route("/signup")
             }
             else {
                 if (cnt) {
-                    return res.json({ "statusMessage": "Email Already Exist." })
+                    res.json({ "statusMessage": "Email Already Exist." });
                 }
                 else {
                     const details = new det({
