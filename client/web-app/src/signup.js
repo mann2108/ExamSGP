@@ -2,6 +2,7 @@ import Axios from 'axios';
 import React from 'react';
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import dashboard from './dashboard';
 
 export default class signup extends React.Component {
 
@@ -41,7 +42,6 @@ export default class signup extends React.Component {
                 Axios.post("http://localhost:5000/signup", { details })
                     .then(res => {
                         alert(res.data.statusMessage);
-                        console.log(res, "Inside Then");
                         this.setState({
                             firstname: '',
                             lastname: '',
@@ -54,11 +54,12 @@ export default class signup extends React.Component {
                         Array.from(document.querySelectorAll("input")).forEach(
                             input => (input.value = '')
                         );
+                        
 
                     })
                     .catch((err) => {
-                        alert(err.data.statusMessage);
-                        console.log(err.data.statusMessage, "Inside Catch");
+                        alert(err.response.data.error);
+                        // console.log(err.data.statusMessage, "Inside Catch");
                     });
             }
             else {
