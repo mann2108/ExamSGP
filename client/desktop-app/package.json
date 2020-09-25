@@ -1,47 +1,54 @@
 {
-  "name": "desktop-app",
-  "version": "1.0.0",
-  "description": "desktop app for examinations",
-  "author": "Jeet Mehta, Mann Mehta",
-  "homepage": "https://github.com/Jeet989/ExamSGP/tree/master/client/desktop-app",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Jeet989/ExamSGP.git"
-  },
-  "contributors": [
-    "Jeet Mehta <https://github.com/Jeet989/>",
-    "Mann Mehta <https://github.com/mann2108/>"
-  ],
-  "license": "MIT",
+  "name": "electron-reactstrap-boilerplate",
+  "version": "0.1.0",
+  "description": "Start point for ElectronJS projects with ReactJS and Bootstrap.",
   "main": "main.js",
   "scripts": {
-    "prod": "webpack --config webpack.build.config.js && electron --noDevServer .",
-    "dev": "webpack-dev-server --hot --host 0.0.0.0 --port 4000 --config=./webpack.dev.config.js",
-    "build": "webpack --config webpack.build.config.js",
-    "package": "webpack --config webpack.build.config.js",
-    "postpackage": "electron-packager ./ --out=./builds"
+    "start": "electron .",
+    "dev": "electron . --debug",
+    "compile": "webpack --mode development",
+    "build": "webpack --mode production"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unnamed-community/electron-reactstrap-boilerplate.git"
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "bootstrap",
+    "reactstrap"
+  ],
+  "author": {
+    "name": "Aris Julio",
+    "url": "https://arisjulio.github.io/"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/unnamed-community/electron-reactstrap-boilerplate/issues"
+  },
+  "homepage": "https://github.com/unnamed-community/electron-reactstrap-boilerplate#readme",
   "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.1.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "babili-webpack-plugin": "^0.1.2",
-    "css-loader": "^0.28.1",
-    "electron": "^1.7.8",
-    "electron-packager": "^9.1.0",
-    "extract-text-webpack-plugin": "^3.0.1",
-    "file-loader": "^1.1.5",
-    "html-webpack-plugin": "^2.28.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "style-loader": "^0.19.0",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.4.5"
+    "css-loader": "^0.28.11",
+    "electron": "^2.0.2",
+    "electron-reload": "^1.2.2",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^3.0.1"
   },
   "dependencies": {
-    "axios": "^0.20.0",
-    "bootstrap": "^4.5.2",
-    "react-router-dom": "^5.2.0",
-    "reactstrap": "^8.6.0"
+    "bootstrap": "^4.1.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-excel-renderer": "^1.1.0",
+    "react-icons-kit": "^1.1.5",
+    "reactstrap": "^6.0.1"
   }
 }

@@ -1,0 +1,28 @@
+html, body {
+  user-select: none;
+  cursor: default;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+.space-bottom {
+  margin-bottom: 40px;
+}
+
+.space-top {
+  margin-top: 40px;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  font-size: 12px !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}

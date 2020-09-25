@@ -1,5 +1,10 @@
 import React from 'react';
-import { render } from 'react-dom';
-import App from './App';
-// Now we can render our application into it
-render( <App />, document.getElementById('app') );
+import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/index.css';
+import Home from './components/Home';
+
+ReactDOM.render(
+  <Home />,
+  document.getElementById('root')
+);
