@@ -1,15 +1,28 @@
-const express = require("express");
-const cors = require("cors");
-const connectDB = require("./DB/connection");
-connectDB();
-
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
 const app = express();
-app.use(cors());
+const bodyParser = require('body-parser');
+require("dotenv/config");
+const connectDB = require('./DB/connections');
+connectDB();
+const details = require('./schema');
+const registerRouter = require('./routes/webapp/register');
+
+let uri = process.env.uri;
+let port = process.env.port;
+
+app.use(cors({
+    origin: 'http://localhost:3000',
+    // credentials: true,
+})
+);
+app.use(morgan('dev'));
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: false }));
 app.use(express.json());
 
-const Port = process.env.PORT;
 
-app.get("/",(req,res,next) => {
-    res.send("Helloo");
-});
-app.listen(Port, () => console.log("Server Started"));
+app.use("/", registerRouter);
+
+app.listen(port, () => console.log("Example app listening on port ", port));
