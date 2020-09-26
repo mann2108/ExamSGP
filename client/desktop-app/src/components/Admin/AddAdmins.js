@@ -11,8 +11,8 @@ class AdminDashboard extends Component {
             <div id="content">
             <div className="row">
                     <Breadcrumb>
-                        <BreadcrumbItem><Link to="/home"><i className="fa fa-home fa-sm"></i> Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active> Admin</BreadcrumbItem>
+                    <BreadcrumbItem><Link to="/admin"><i className="fa fa-home fa-sm"></i> Dashboard</Link></BreadcrumbItem>
+                        <BreadcrumbItem active> Add Admins</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
                         <h3>Admin Dashboard</h3>
@@ -24,7 +24,8 @@ class AdminDashboard extends Component {
                   <div>
                       <h1>Welcome.. Admin</h1>
                       <p>
-                          Admin can add students, faculties and other admins.
+                          Admin can manage users through<br />
+                          Add and View (Users)
                       </p>
                   </div>
                 </Jumbotron>

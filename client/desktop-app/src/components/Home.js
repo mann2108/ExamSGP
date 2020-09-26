@@ -20,8 +20,7 @@ class Home extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("hello2");
-    history.push("/admindashboard");
+    history.push("/admin");
   }
 
   render() {
@@ -36,7 +35,6 @@ class Home extends Component {
             <Button color="primary" onClick={this.handleUrlRedirect('https://github.com/mann2108')}>Learn More</Button>
           </p>
         </Jumbotron>
-
         <Form style={{marginLeft:200,marginRight:200}} onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label for="email">Email</Label>
