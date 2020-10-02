@@ -13,7 +13,9 @@ export default class signup extends React.Component {
             lastname: '',
             email: '',
             id: '',
+            idName: '',
             photo: '',
+            photoName: '',
             university: '',
             designation: '',
         }
@@ -23,7 +25,7 @@ export default class signup extends React.Component {
 
         event.preventDefault();
 
-        if ((this.state.firstname === '') || (this.state.lastname === '') || (this.state.email === '') || (this.state.id === '') || (this.state.photo === '') || (this.state.university === '') || (this.state.designation === '')) {
+        if ((this.state.firstname === '') || (this.state.lastname === '') || (this.state.email === '') || (this.state.id === '') || (this.state.photo === '') || (this.state.university === '') || (this.state.designation === '' || this.state.idName === '' || this.state.photoName === '')) {
             alert("Enter All Details.. ");
         }
         else {
@@ -35,7 +37,9 @@ export default class signup extends React.Component {
                     id: this.state.id,
                     photo: this.state.photo,
                     university: this.state.university,
-                    designation: this.state.designation
+                    designation: this.state.designation,
+                    idName: this.state.idName,
+                    photoName: this.state.photoName
                 }
                 // console.log(details)
 
@@ -47,7 +51,9 @@ export default class signup extends React.Component {
                             lastname: '',
                             email: '',
                             id: '',
+                            idName: '',
                             photo: '',
+                            photoName: '',
                             university: '',
                             designation: '',
                         });
@@ -80,6 +86,7 @@ export default class signup extends React.Component {
     }
 
     fileUpload = e => {
+
         let files = e.target.files
         // console.log(files);
 
@@ -88,20 +95,26 @@ export default class signup extends React.Component {
 
         reader.onload = (file) => {
             this.setState({
-                id: file.target.result
+                id: file.target.result,
+                idName: files[0].name
             });
         }
     }
 
     photoUpload = e => {
+        // console.log(e.target.files[0].name)
         let files = e.target.files;
+        console.log(files[0].name);
 
         let reader = new FileReader();
         reader.readAsDataURL(files[0]);
 
         reader.onload = (file) => {
+            console.log(files[0].name)
+            // console.log(file[0].result.name)
             this.setState({
-                photo: file.target.result
+                photo: file.target.result,
+                photoName: files[0].name
             });
         }
     }

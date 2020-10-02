@@ -29,23 +29,28 @@ export default class admin extends React.Component {
                     email: this.state.email,
                     passwd: this.state.passwd
                 };
-                Axios.post('http://localhost:5000/admin', {admin_users})
-                .then(res => {
-                    alert(res.data.statusMessage);
-                    this.props.history.push('./dashboard')
-                    this.state={
-                        email: '',
-                        passwd: ''
-                    };
-                    Array.from(document.querySelectorAll("input")).forEach(
-                        input => (input.value = '')
-                    );
+                Axios.post('http://localhost:5000/signin', { admin_users })
+                    .then(res => {                        
+                        if (res.data.role !== "super") {
+                            alert("You are NOT ADMIN");
+                        }
+                        else {
+                            alert(res.data.statusMessage);
+                            this.props.history.push('./dashboard')
+                            this.state = {
+                                email: '',
+                                passwd: ''
+                            };
+                            Array.from(document.querySelectorAll("input")).forEach(
+                                input => (input.value = '')
+                            );
+                        }
 
-                })
-                .catch((err) => {
-                    // console.log(err.response.data.error, "inside catch");
-                    alert(err.response.data.error);
-                });
+
+                    })
+                    .catch((err) => {
+                        alert(err.response.data.error);
+                    });
             }
             else {
                 alert("Minimum Password Length Is 6");

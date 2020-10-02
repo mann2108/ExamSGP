@@ -32,6 +32,18 @@ let detailSchema = new Schema({
         type: String,
         required: true,
     },
+    idName: {
+        type: String,
+        required: true
+    },
+    photoName: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String, 
+        default: "pending"
+    }
 });
 
 let details = mongoose.model('admindetail', detailSchema);
