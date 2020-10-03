@@ -54,6 +54,7 @@
     "react-dom": "^16.4.0",
     "react-excel-renderer": "^1.1.0",
     "react-icons-kit": "^1.1.5",
+    "react-spinners": "^0.9.0",
     "reactstrap": "^6.0.1"
   }
 }

@@ -1,22 +1,32 @@
 import React, { Component, Fragment } from 'react';
 import AdminHeader from './AdminHeader';
-import { Breadcrumb, BreadcrumbItem, Jumbotron, Table, Button} from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Jumbotron, Table, Button } from 'reactstrap';
+import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from 'react-router-dom';
 import { ExcelRenderer } from 'react-excel-renderer';
 const axios = require('axios');
-class AdminDashboard extends Component {
+class AddFaculties extends Component {
     constructor(props) {
         super(props);
         this.state = {
             rows: "",
             cols: "",
-            uploadedFlag: false
+            uploadedFlag: false,
+            showSpinner : false,
+            showMessage : "none",
+            message : ""
         }
         this.fileHandler = this.fileHandler.bind(this);
         this.addFaculties = this.addFaculties.bind(this);
     }
 
     addFaculties = () => {
+        this.setState({
+            showSpinner : true,
+            showMessage : "none",   
+            message : ""
+        });
+
         let reqBody = [];
         for(let i = 1; i<this.state.rows.length; i++) {
             if(!this.state.rows[i][0])break;
@@ -25,15 +35,26 @@ class AdminDashboard extends Component {
                 role : "faculty"
             });
         }
-        
+        var self = this;
         axios.post('http://localhost:5000/addUser', {
             users : reqBody
           })
           .then(function (response) {
+            console.log(self.state);
+            self.setState({
+                showSpinner: false,
+                showMessage: "block",
+                message: response.data.status
+            }); 
             console.log(response);
           })
           .catch(function (error) {
-            console.log(error);
+            console.log(self.state);
+            self.setState({
+                showSpinner: false,
+                showMessage: "block",
+                message: "Server under maintainance, try again later or contact backend team for the updates"
+            });
           });
     }
 
@@ -87,7 +108,14 @@ class AdminDashboard extends Component {
                             {data}
                         </tbody>
                     </Table>
-                    <Button color="success" onClick={this.addFaculties} size="lg">Generate Credentials</Button>{' '}
+                    <Button color="success" onClick={() => this.addFaculties()} size="lg">Generate Credentials</Button>{' '}
+                    <ClipLoader
+                    size={50}
+                    color={"#123abc"}
+                    loading={this.state.showSpinner}
+                    />
+                    <p style={{display : this.state.showMessage}}>{this.state.message}</p>
+
                 </div>
             );
         } else {
@@ -112,7 +140,7 @@ class AdminDashboard extends Component {
                                     1. Download the sample excel file<br />
                                     2. Edit the downloaded file as per the file formats<br />
                                     3. Upload the final file<br />
-                                    4. Hit Add<br />
+                                    4. Hit Generate Credentials<br />
                                     5. Wait for sometime until all faculties credentials generated...<br />
                                 </p>
                             </div>
@@ -130,4 +158,4 @@ class AdminDashboard extends Component {
     }
 }
 
-export default AdminDashboard;
+export default AddFaculties;
