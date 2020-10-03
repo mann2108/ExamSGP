@@ -3,9 +3,8 @@ import AdminHeader from './AdminHeader';
 import { Breadcrumb, BreadcrumbItem, Jumbotron, Table, Button} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { ExcelRenderer } from 'react-excel-renderer';
-
+const axios = require('axios');
 class AdminDashboard extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -14,6 +13,28 @@ class AdminDashboard extends Component {
             uploadedFlag: false
         }
         this.fileHandler = this.fileHandler.bind(this);
+        this.addFaculties = this.addFaculties.bind(this);
+    }
+
+    addFaculties = () => {
+        let reqBody = [];
+        for(let i = 1; i<this.state.rows.length; i++) {
+            if(!this.state.rows[i][0])break;
+            reqBody.push({
+                email : this.state.rows[i][3],
+                role : "faculty"
+            });
+        }
+        
+        axios.post('http://localhost:5000/addUser', {
+            users : reqBody
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 
     fileHandler = (event) => {
@@ -66,7 +87,7 @@ class AdminDashboard extends Component {
                             {data}
                         </tbody>
                     </Table>
-                    <Button color="success" size="lg">Generate Credentials</Button>{' '}
+                    <Button color="success" onClick={this.addFaculties} size="lg">Generate Credentials</Button>{' '}
                 </div>
             );
         } else {
