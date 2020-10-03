@@ -3,12 +3,14 @@ const reload = require('electron-reload')
 const path = require('path')
 const url = require('url')
 const debug = /--debug/.test(process.argv[2])
+const electron = require('electron')
 
 let mainWindow
 
 if (debug) reload(path.join(__dirname, 'dist'))
 
 function createWindow() {
+    
     mainWindow = new BrowserWindow({ width: 800, height: 600 })
 
     mainWindow.setMenu(null)
@@ -20,13 +22,14 @@ function createWindow() {
         protocol: 'file:',
         slashes: true
     }))
-
+    console.log(electron.screen.getAllDisplays());
     mainWindow.on('closed', () => mainWindow = null)
 }
 
 app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
+
     if (process.platform !== 'darwin') app.quit()
 })
 
