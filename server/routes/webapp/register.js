@@ -6,6 +6,7 @@ const express = require('express');
 const det = require('../../schema');
 const user = require('../../adminschema');
 const { MongoClient } = require('mongodb');
+const Cookies = require('js-cookie');
 
 const mainRouter = express.Router();
 
@@ -81,9 +82,21 @@ mainRouter.route("/signin")
 
 mainRouter.route("/dashboard")
 .get((req, res) => {
+    let cookie = Cookies.get()
+    console.log(cookie)
     det.find({"status": "pending"})
     .then((values) => {
-        // console.log(values);
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(values);
+    })
+    .catch((err) => res.status(503).send({error: "Server Unable to Process Data"}));
+})
+
+mainRouter.route("/accepted")
+.get((req, res) => {
+    det.find({"status": "accepted"})
+    .then((values) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(values);

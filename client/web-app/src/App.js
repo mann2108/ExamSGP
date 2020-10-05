@@ -14,8 +14,9 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          <h1>Online Examination Portal</h1>
           <Button onClick={this.onNavigateSignup} variant="outlined" color="primary">
-            Primary
+            Register Your Organization
           </Button>
         </header>
       </div>

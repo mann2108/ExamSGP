@@ -48,7 +48,7 @@ export default class ShowModalCase extends React.Component {
             >
                 <Modal.Header>
                     <Modal.Title>
-                        Application Accepted{console.log(this.props)}
+                        Application Accepted
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

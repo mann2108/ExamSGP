@@ -3,6 +3,7 @@ import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from 'axios';
 import dashboard from './dashboard'
+import Cookies from 'js-cookie';
 
 
 export default class admin extends React.Component {
@@ -36,6 +37,7 @@ export default class admin extends React.Component {
                         }
                         else {
                             alert(res.data.statusMessage);
+                            // Cookies.set(this.state.email, this.state.passwd, {expires: 1});
                             this.props.history.push('./dashboard')
                             this.state = {
                                 email: '',

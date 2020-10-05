@@ -3,7 +3,7 @@
 }
 
 .App-header {
-  background-color: whitesmoke;
+  background-color: rgba(102, 104, 112, 0.096);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
