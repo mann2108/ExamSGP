@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-let adminschema = new Schema({
+let userSchema = new Schema({
     email: {
         type: String,
         required:true
@@ -17,6 +17,6 @@ let adminschema = new Schema({
     }
 });
 
-let admin = mongoose.model('user', adminschema);
+let user = mongoose.model('user', userSchema);
 
-module.exports = admin;
+module.exports = user;
