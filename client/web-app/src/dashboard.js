@@ -120,6 +120,7 @@ export default class dashboard extends React.Component {
             }
         }))
         this.state = {
+            modalHeader: '',
             userDetails: '',
             sendDetails: '',
             open: false,
@@ -142,15 +143,7 @@ export default class dashboard extends React.Component {
     }
 
     componentDidMount() {
-        Axios.get('http://localhost:5000/dashboard')
-            .then((res) => {
-                let values = res.data;
-                let details = [];
-                this.setState({
-                    userDetails: values
-                })
-            })
-            .catch((err) => console.log(err));
+        this.pendingReq();
     }
 
     renderDetails = (value, index) => {
@@ -170,15 +163,26 @@ export default class dashboard extends React.Component {
                 <td>
                     <Button color="primary" onClick={() => this.ff(value)} >Yes</Button>
                 </td>
-                <td><Button color="danger" >No</Button></td>
+                <td>
+                    <Button color="danger" onClick={() => this.fail(value)}>No</Button>
+                </td>
             </tr >
         )
     }
 
+    fail = (value) => {
+        this.setState({
+            modalHeader: 'Application Rejected',
+            sendDetails: value.email,
+            addModalShow: true,
+        })
+    }
+
     ff = (value) => {
         this.setState({
+            modalHeader: 'Application Accepted',
+            sendDetails: value.email,
             addModalShow: true,
-            sendDetails: value.email
         })
     }
 
@@ -204,6 +208,31 @@ export default class dashboard extends React.Component {
             .catch((err) => console.log(err));
     }
 
+    rejectedReq = () => {
+        this.handleDrawerClose();
+        Axios.get("http://localhost:5000/rejected")
+            .then((res) => {
+                let values = res.data;
+                this.setState({
+                    userDetails: values
+                });
+            })
+            .catch((err) => console.log(err))
+    }
+
+    pendingReq = () => {
+        this.handleDrawerClose();
+        Axios.get('http://localhost:5000/dashboard')
+            .then((res) => {
+                let values = res.data;
+                let details = [];
+                this.setState({
+                    userDetails: values
+                })
+            })
+            .catch((err) => console.log(err));
+    }
+
     render() {
         let addModalClose = () => {
             this.setState({
@@ -212,7 +241,7 @@ export default class dashboard extends React.Component {
         }
 
         let showData = [];
-        for(let i =0 ; i < this.state.userDetails.length; i++) {
+        for (let i = 0; i < this.state.userDetails.length; i++) {
             showData.push(this.renderDetails(this.state.userDetails[i], i))
         }
 
@@ -255,6 +284,7 @@ export default class dashboard extends React.Component {
                             edge="start"
                             color="inherit"
                             aria-label="Show Pending Requests"
+                            onClick={this.pendingReq}
                         >
                             <HourglassEmptySharpIcon />Pending
                         </IconButton>
@@ -276,6 +306,7 @@ export default class dashboard extends React.Component {
                             edge="start"
                             color="inherit"
                             aria-label="Accepted Requests"
+                            onClick={this.rejectedReq}
                         >
                             <CloseSharpIcon />Rejected
                         </IconButton>
@@ -305,6 +336,7 @@ export default class dashboard extends React.Component {
                     show={this.state.addModalShow}
                     onHide={addModalClose}
                     email={this.state.sendDetails}
+                    header={this.state.modalHeader}
                 />
             </div>
         );
