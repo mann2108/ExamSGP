@@ -7,6 +7,8 @@ const det = require('../../schema');
 const user = require('../../adminschema');
 const { MongoClient } = require('mongodb');
 const Cookies = require('js-cookie');
+const nodemailer = require('nodemailer');
+const generator = require('generate-password');
 
 const mainRouter = express.Router();
 
@@ -63,52 +65,144 @@ mainRouter.route("/signin")
                 next(err);
             }
             else {
-                
+
                 if (someValue.length) {
                     console.log(someValue[0].role)
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'application/json');
                     res.json({ "statusMessage": "Login Successful", "role": someValue[0].role });
-                    
+
                 }
-                else{
-                    res.status(401).send({error: 'Incorrect Credentials'});
+                else {
+                    res.status(401).send({ error: 'Incorrect Credentials' });
                 }
 
             }
         })
 
 
-    })
+    });
 
 mainRouter.route("/dashboard")
-.get((req, res) => {
-    let cookie = Cookies.get()
-    console.log(cookie)
-    det.find({"status": "pending"})
-    .then((values) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(values);
-    })
-    .catch((err) => res.status(503).send({error: "Server Unable to Process Data"}));
-})
+    .get((req, res) => {
+        // let cookie = Cookies.get()
+        // console.log(cookie)
+        det.find({ "status": "pending" })
+            .then((values) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(values);
+            })
+            .catch((err) => res.status(503).send({ error: "Server Unable to Process Data" }));
+    });
 
 mainRouter.route("/accepted")
-.get((req, res) => {
-    det.find({"status": "accepted"})
-    .then((values) => {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(values);
-    })
-    .catch((err) => res.status(503).send({error: "Server Unable to Process Data"}));
-})
+    .get((req, res) => {
+        det.find({ "status": "accepted" })
+            .then((values) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(values);
+            })
+            .catch((err) => res.status(503).send({ error: "Server Unable to Process Data" }));
+    });
+
+mainRouter.route("/rejected")
+    .get((req, res) => {
+        det.find({ "status": "rejected" })
+            .then((values) => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(values);
+            })
+            .catch((err) => res.status(503).send({ error: "Server Unable to Process Data" }));
+    });
 
 mainRouter.route("/confirmation")
-.post((req, res) => {
-    
-})
+    .post((req, res) => {
+        let password = generator.generate({
+            length: 10,
+            uppercase: true,
+            numbers: true,
+            symbols: true
+        });
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'sgpexamination@gmail.com',
+                pass: 'sgpexamination123$%$'
+            }
+        });
+        let mailOptions = {
+            from: 'sgpexamination@gmail.com',
+            to: 'jeet3766@gmail.com',
+            subject: 'Application Accepted',
+            text: `Your Organization has been successfully registered with our service. Now you can create an exam paper with all sorts of functions which are avaiable with our system. Here is your temporary password ${password} & This is your Registered MailId from your Organization  ${req.body.details.email}`
+        }
+        transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+                console.log(err);
+                res.statusCode = 502;
+                res.send({ error: "Mail Not Sent" });
+            }
+            else {
+                det.findOneAndUpdate({ email: req.body.details.email }, { $set: { status: "accepted" } }, { new: true }, (error, doc) => {
+                    if (error) {
+                        res.statusCode = 501;
+                        res.send({ error: "Failed to Update DB" })
+                    }
+                    else {
+                        console.log('email sent ' + info.response)
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'text/plain');
+                        res.json({ "statusMessage": "Mail Sent Successfully" });
+                    }
+                })
+
+            }
+        })
+
+    });
+
+mainRouter.route("/rejection")
+    .post((req, res) => {
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'sgpexamination@gmail.com',
+                pass: 'sgpexamination123$%$'
+            }
+        });
+        let mailOptions = {
+            from: 'sgpexamination@gmail.com',
+            to: 'jeet3766@gmail.com',
+            subject: 'Application Rejected',
+            text: `Your application has been Rejected. It may be due to multiple user logins registered or may be due any incorrect documents submitted. For any further guidance mail us at sgpexamination@gmail.com`
+        }
+        transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+                console.log(err);
+                res.statusCode = 502;
+                res.send({ error: "Mail Not Sent" });
+            }
+            else {
+                det.findOneAndUpdate({ email: req.body.details.email }, { $set: { status: "rejected" } }, { new: true }, (error, doc) => {
+                    if (error) {
+                        res.statusCode = 501;
+                        res.send({ error: "Failed to Update DB" })
+                    }
+                    else {
+                        console.log('email sent ' + info.response)
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'text/plain');
+                        res.json({ "statusMessage": "Mail Sent Successfully" });
+                    }
+                })
+
+            }
+        })
+
+    });
 
 module.exports = mainRouter;
 
