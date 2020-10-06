@@ -10,7 +10,8 @@ import AddStudents from './Admin/AddStudents';
 import DisplayFaculties from './Admin/DisplayFaculties';
 import DisplayStudents from './Admin/DisplayStudents';
 import DisplayAdmins from './Admin/DisplayAdmins';
-
+import FacultyDashboard from './Faculty/FacultyDashboard';
+import StudentDashboard from './Student/StudentDashboard';
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +27,8 @@ class Main extends Component {
                     <Switch>
                         <Route exact path="/home" component={() => <Home />}></Route>
                         <Route exact path="/admin" component={() => <AdminDashboard />}></Route>
+                        <Route exact path="/faculty" component={() => <FacultyDashboard />}></Route>
+                        <Route exact path="/student" component={() => <StudentDashboard />}></Route>
                         <Route exact path="/admin/students" component={() => <AddStudents />}></Route>
                         <Route exact path="/admin/faculties" component={() => <AddFaculties />}></Route>
                         <Route exact path="/admin/admins" component={() => <AddAdmins />}></Route>
