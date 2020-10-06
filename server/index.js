@@ -6,9 +6,10 @@ const bodyParser = require('body-parser');
 require("dotenv/config");
 const connectDB = require('./DB/connections');
 connectDB();
-const details = require('./schema');
+const details = require('./DB/schema');
 const registerRouter = require('./routes/webapp/register');
-const addUsersRouter = require('./routes/desktopApp/addUsers')
+const addUsersRouter = require('./routes/desktopApp/addUsers');
+const getUsersRouter = require('./routes/desktopApp/getUsers');
 let uri = process.env.uri;
 let port = process.env.port;
 
@@ -25,7 +26,7 @@ app.use(express.json());
 
 app.use("/", registerRouter);
 app.use("/addUser",addUsersRouter);
-
+app.use("/getUsers", getUsersRouter);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
