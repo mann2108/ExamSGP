@@ -135,7 +135,7 @@ class AddAdmins extends Component {
                         </div>
                         <Jumbotron>
                             <div>
-                                <h2>Follows the steps to add faculties</h2>
+                                <h2>Follows the steps to add admins</h2>
                                 <p style={{ fontSize: 15 }}>
                                     1. Download the sample excel file<br />
                                     2. Edit the downloaded file as per the file formats<br />
