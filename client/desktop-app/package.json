@@ -1,60 +1,60 @@
 {
-  "name": "electron-reactstrap-boilerplate",
-  "version": "0.1.0",
-  "description": "Start point for ElectronJS projects with ReactJS and Bootstrap.",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "dev": "electron . --debug",
-    "compile": "webpack --mode development",
-    "build": "webpack --mode production"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/unnamed-community/electron-reactstrap-boilerplate.git"
-  },
-  "keywords": [
-    "electron",
-    "react",
-    "bootstrap",
-    "reactstrap"
-  ],
-  "author": {
-    "name": "Aris Julio",
-    "url": "https://arisjulio.github.io/"
-  },
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/unnamed-community/electron-reactstrap-boilerplate/issues"
-  },
-  "homepage": "https://github.com/unnamed-community/electron-reactstrap-boilerplate#readme",
-  "devDependencies": {
-    "@fortawesome/free-solid-svg-icons": "^5.14.0",
-    "@fortawesome/react-fontawesome": "^0.1.11",
-    "axios": "^0.20.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "classnames": "^2.2.6",
-    "css-loader": "^0.28.11",
-    "electron": "^2.0.2",
-    "electron-reload": "^1.2.2",
-    "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.2.0",
-    "react-router-dom": "^5.2.0",
-    "style-loader": "^0.21.0",
-    "webpack": "^4.10.2",
-    "webpack-cli": "^3.0.1"
-  },
-  "dependencies": {
-    "bootstrap": "^4.1.1",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-excel-renderer": "^1.1.0",
-    "react-icons-kit": "^1.1.5",
-    "react-spinners": "^0.9.0",
-    "reactstrap": "^6.0.1"
-  }
+    "name": "electron-reactstrap-boilerplate",
+    "version": "0.1.0",
+    "description": "Start point for ElectronJS projects with ReactJS and Bootstrap.",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "dev": "electron . --debug",
+        "compile": "webpack --mode development",
+        "build": "webpack --mode production"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/unnamed-community/electron-reactstrap-boilerplate.git"
+    },
+    "keywords": [
+        "electron",
+        "react",
+        "bootstrap",
+        "reactstrap"
+    ],
+    "author": {
+        "name": "Aris Julio",
+        "url": "https://arisjulio.github.io/"
+    },
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/unnamed-community/electron-reactstrap-boilerplate/issues"
+    },
+    "homepage": "https://github.com/unnamed-community/electron-reactstrap-boilerplate#readme",
+    "devDependencies": {
+        "@fortawesome/free-solid-svg-icons": "^5.14.0",
+        "@fortawesome/react-fontawesome": "^0.1.11",
+        "axios": "^0.20.0",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.4",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-react": "^6.24.1",
+        "classnames": "^2.2.6",
+        "css-loader": "^0.28.11",
+        "electron": "^2.0.2",
+        "electron-reload": "^1.2.2",
+        "file-loader": "^1.1.11",
+        "html-webpack-plugin": "^3.2.0",
+        "react-router-dom": "^5.2.0",
+        "style-loader": "^0.21.0",
+        "webpack": "^4.10.2",
+        "webpack-cli": "^3.0.1"
+    },
+    "dependencies": {
+        "bootstrap": "^4.1.1",
+        "react": "^16.4.0",
+        "react-dom": "^16.4.0",
+        "react-excel-renderer": "^1.1.0",
+        "react-icons-kit": "^1.1.5",
+        "react-spinners": "^0.9.0",
+        "reactstrap": "^6.0.1"
+    }
 }

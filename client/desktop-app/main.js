@@ -10,7 +10,7 @@ let mainWindow
 if (debug) reload(path.join(__dirname, 'dist'))
 
 function createWindow() {
-    
+
     mainWindow = new BrowserWindow({ width: 800, height: 600 })
 
     mainWindow.setMenu(null)

@@ -12,9 +12,9 @@ class AddStudent extends Component {
             rows: "",
             cols: "",
             uploadedFlag: false,
-            showSpinner : false,
-            showMessage : "none",
-            message : ""
+            showSpinner: false,
+            showMessage: "none",
+            message: ""
         }
         this.fileHandler = this.fileHandler.bind(this);
         this.addStudents = this.addStudents.bind(this);
@@ -22,46 +22,46 @@ class AddStudent extends Component {
 
     addStudents = () => {
         this.setState({
-            showSpinner : true,
-            showMessage : "none",   
-            message : ""
+            showSpinner: true,
+            showMessage: "none",
+            message: ""
         });
 
         let reqBody = [];
-        for(let i = 1; i<this.state.rows.length; i++) {
-            if(!this.state.rows[i][0])break;
+        for (let i = 1; i < this.state.rows.length; i++) {
+            if (!this.state.rows[i][0]) break;
             reqBody.push({
-                email : this.state.rows[i][3],
-                role : "student"
+                email: this.state.rows[i][3],
+                role: "student"
             });
         }
         var self = this;
         axios.post('http://localhost:5000/addUser', {
-            users : reqBody
-          })
-          .then(function (response) {
-            console.log(self.state);
-            self.setState({
-                showSpinner: false,
-                showMessage: "block",
-                message: response.data.status
-            }); 
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(self.state);
-            self.setState({
-                showSpinner: false,
-                showMessage: "block",
-                message: "Server under maintainance, try again later or contact backend team for the updates"
+            users: reqBody
+        })
+            .then(function (response) {
+                console.log(self.state);
+                self.setState({
+                    showSpinner: false,
+                    showMessage: "block",
+                    message: response.data.status
+                });
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(self.state);
+                self.setState({
+                    showSpinner: false,
+                    showMessage: "block",
+                    message: "Server under maintainance, try again later or contact backend team for the updates"
+                });
             });
-          });
     }
 
     fileHandler = (event) => {
         let fileObj = event.target.files[0];
         ExcelRenderer(fileObj, (err, resp) => {
-            if (err) {           
+            if (err) {
                 this.setState({
                     cols: "",
                     rows: "",
@@ -81,18 +81,18 @@ class AddStudent extends Component {
     render() {
         let displayUploadedData = [];
         let data = [];
-        for(let i = 1; i<this.state.rows.length; i++) {
-            if(!this.state.rows[i][0])break;
+        for (let i = 1; i < this.state.rows.length; i++) {
+            if (!this.state.rows[i][0]) break;
             data.push(
                 <tr>
                     <td>{this.state.rows[i][0]}</td>
                     <td>{this.state.rows[i][1]}</td>
                     <td>{this.state.rows[i][2]}</td>
-                    <td>{this.state.rows[i][3]}</td>        
+                    <td>{this.state.rows[i][3]}</td>
                 </tr>
             );
         }
-        if(this.state.uploadedFlag) {
+        if (this.state.uploadedFlag) {
             displayUploadedData.push(
                 <div>
                     <Table dark>
@@ -110,11 +110,11 @@ class AddStudent extends Component {
                     </Table>
                     <Button color="success" onClick={() => this.addStudents()} size="lg">Generate Credentials</Button>{' '}
                     <ClipLoader
-                    size={50}
-                    color={"#123abc"}
-                    loading={this.state.showSpinner}
+                        size={50}
+                        color={"#123abc"}
+                        loading={this.state.showSpinner}
                     />
-                    <p style={{display : this.state.showMessage}}>{this.state.message}</p>
+                    <p style={{ display: this.state.showMessage }}>{this.state.message}</p>
 
                 </div>
             );

@@ -5,6 +5,6 @@ import './styles/index.css';
 import Main from './components/Main';
 
 ReactDOM.render(
-  <Main />,
-  document.getElementById('root')
+    <Main />,
+    document.getElementById('root')
 );
