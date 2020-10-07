@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const express = require('express');
-// require(path);
+
 const det = require('../../DB/schema');
 const user = require('../../DB/userSchema');
 const { MongoClient } = require('mongodb');
@@ -126,41 +126,71 @@ mainRouter.route("/confirmation")
             numbers: true,
             symbols: true
         });
-        let transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'sgpexamination@gmail.com',
-                pass: 'sgpexamination123$%$'
-            }
-        });
-        let mailOptions = {
-            from: 'sgpexamination@gmail.com',
-            to: 'jeet3766@gmail.com',
-            subject: 'Application Accepted',
-            text: `Your Organization has been successfully registered with our service. Now you can create an exam paper with all sorts of functions which are avaiable with our system. Here is your temporary password ${password} & This is your Registered MailId from your Organization  ${req.body.details.email}`
-        }
-        transporter.sendMail(mailOptions, (err, info) => {
-            if (err) {
-                console.log(err);
-                res.statusCode = 502;
-                res.send({ error: "Mail Not Sent" });
-            }
-            else {
-                det.findOneAndUpdate({ email: req.body.details.email }, { $set: { status: "accepted" } }, { new: true }, (error, doc) => {
-                    if (error) {
-                        res.statusCode = 501;
-                        res.send({ error: "Failed to Update DB" })
-                    }
-                    else {
-                        console.log('email sent ' + info.response)
-                        res.statusCode = 200;
-                        res.setHeader('Content-Type', 'text/plain');
-                        res.json({ "statusMessage": "Mail Sent Successfully" });
-                    }
-                })
 
-            }
-        })
+        det.find({ "email": { $in: [req.body.details.email] } })
+            .then(data => {
+                console.log(data[0]._id)
+                user.collection.find({ "email": { $in: [req.body.details.email] } }).count()
+                    .then((countUserExist) => {
+                        console.log(countUserExist);
+                        if (countUserExist === 0) {
+                            let queryData = [];
+                            queryData.push({
+                                "email": req.body.details.email,
+                                "passwd": password,
+                                "role": "admin",
+                                "orgId": data[0]._id
+                            });
+                            user.collection.insertMany(queryData)
+                                .then(() => {
+                                    console.log("success");
+                                    let transporter = nodemailer.createTransport({
+                                        service: 'gmail',
+                                        auth: {
+                                            user: 'sgpexamination@gmail.com',
+                                            pass: 'sgpexamination123$%$'
+                                        }
+                                    });
+                                    let mailOptions = {
+                                        from: 'sgpexamination@gmail.com',
+                                        to: 'jeet3766@gmail.com',
+                                        subject: 'Application Accepted',
+                                        text: `Your Organization has been successfully registered with our service. Now you can create an exam paper with all sorts of functions which are avaiable with our system. Here is your temporary password ${password} & This is your Registered MailId from your Organization  ${req.body.details.email}`
+                                    }
+                                    transporter.sendMail(mailOptions, (err, info) => {
+                                        if (err) {
+                                            console.log(err);
+                                            res.statusCode = 502;
+                                            res.send({ error: "Mail Not Sent" });
+                                        }
+                                        else {
+                                            det.findOneAndUpdate({ email: req.body.details.email }, { $set: { status: "accepted" } }, { new: true }, (error, doc) => {
+                                                if (error) {
+                                                    res.statusCode = 501;
+                                                    res.send({ error: "Failed to Update DB" })
+                                                }
+                                                else {
+                                                    console.log('email sent ' + info.response)
+                                                    res.statusCode = 200;
+                                                    res.setHeader('Content-Type', 'text/plain');
+                                                    res.json({ "statusMessage": "Mail Sent Successfully" });
+                                                }
+                                            })
+
+                                        }
+                                    })
+                                })
+                                .catch((err) => {
+                                    console.log("error");
+                                    res.status(500).send({error : "Server Side Error Occured !" })
+                                })
+                        } else {
+                            res.status(200).json({ "statusMessage": "Organization with this email id already exists.." })
+                        }
+                    });
+            })
+            .catch(err => res.status(500).send({ error: "Server Side Error Occured !" }))
+
 
     });
 

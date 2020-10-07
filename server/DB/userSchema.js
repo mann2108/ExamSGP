@@ -14,6 +14,10 @@ let userSchema = new Schema({
     role: {
         type: String,
         required: true
+    },
+    orgId: {
+        type: String,
+        required: true
     }
 });
 
