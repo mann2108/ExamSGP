@@ -5,7 +5,7 @@ const user = require('../../DB/userSchema');
 const path = require('path');
 const generator = require('generate-password');
 const mainRouter = express.Router();
-
+const nodemailer = require('nodemailer');
 mainRouter.use(bodyParser.json());
 
 var db = mongoose.connection;
@@ -28,7 +28,8 @@ mainRouter.route("/")
             queryData.push({
                 "email" : body[i].email,
                 "passwd" : passwords[i],
-                "role" : body[i].role
+                "role" : body[i].role,
+                "orgId" : body[i].orgId  
             });
         }
         user.collection.find({"email" : { $in: emails }}).count()
@@ -38,7 +39,36 @@ mainRouter.route("/")
                 user.collection.insertMany(queryData)
                 .then(() => {
                     console.log("success");
-                    res.status(200).json({"status" : "All Users Generated Successfully !"})
+                    
+                    for(let i=0;i<queryData.length;i++) {
+                        let toEmail = queryData[i].email;
+                        let pwd = queryData[i].passwd;
+
+                        let transporter = nodemailer.createTransport({
+                            service: 'gmail',
+                            auth: {
+                                user: 'sgpexamination@gmail.com',
+                                pass: 'sgpexamination123$%$'
+                            }
+                        });
+
+                        let mailOptions = {
+                            from: 'sgpexamination@gmail.com',
+                            to: toEmail,
+                            subject: 'Your password',
+                            text: `Your Organization has been successfully registered with our service. Here is your temporary password ${pwd} & This is your Registered MailId from your Organization  ${toEmail}`
+                        }
+                        transporter.sendMail(mailOptions, (err, info) => {
+                            if (err) {
+                                console.log(err);
+                                res.status(200).json({"status" : "All Users Generated Successfully ! but mail not sent !"})
+                            }
+                            else {
+                                console.log("Mail sent");
+                                res.status(200).json({"status" : "All Users Generated Successfully !"})
+                            }
+                        })
+                    }
                 })
                 .catch((err) => {
                     console.log("error");   
@@ -47,6 +77,8 @@ mainRouter.route("/")
             } else {
                 res.status(200).json({"status" :countUserExist+" user/users from the file already exist, please check and generate again after updating the files !"})
             }
+        }).catch((err) => {
+            res.status(500);
         });
     });
 

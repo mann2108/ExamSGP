@@ -147,7 +147,7 @@ class AddStudent extends Component {
                         </Jumbotron>
 
                         <ul className="list-unstyled CTAs">
-                            <li><a href="https://bootstrapious.com/tutorial/files/sidebar.zip" className="article">Download sample document</a></li>
+                        <li><a onClick={() => shell.openExternal("https://drive.google.com/file/d/1VG-S--EotQkm2LiuDMq8sc1wwk9XaOOo/view?usp=sharing")} className="article">Download sample document</a></li>
                             <div style={{ borderStyle: 'dashed' }}><center><h3>Upload File</h3></center><input type="file" onChange={this.fileHandler.bind(this)} style={{ "padding": "10px" }} /></div>
                         </ul>
                         {displayUploadedData}
