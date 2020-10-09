@@ -9,7 +9,7 @@ const { MongoClient } = require('mongodb');
 const Cookies = require('js-cookie');
 const nodemailer = require('nodemailer');
 const generator = require('generate-password');
-
+require('dotenv/config');
 const mainRouter = express.Router();
 
 mainRouter.use(bodyParser.json());
@@ -148,7 +148,7 @@ mainRouter.route("/confirmation")
                                         service: 'gmail',
                                         auth: {
                                             user: 'sgpexamination@gmail.com',
-                                            pass: 'sgpexamination123$%$'
+                                            pass: process.env.password
                                         }
                                     });
                                     let mailOptions = {
@@ -200,7 +200,7 @@ mainRouter.route("/rejection")
             service: 'gmail',
             auth: {
                 user: 'sgpexamination@gmail.com',
-                pass: 'sgpexamination123$%$'
+                pass: process.env.password
             }
         });
         let mailOptions = {

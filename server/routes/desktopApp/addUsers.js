@@ -7,7 +7,7 @@ const generator = require('generate-password');
 const mainRouter = express.Router();
 const nodemailer = require('nodemailer');
 mainRouter.use(bodyParser.json());
-
+require('dotenv/config');
 var db = mongoose.connection;
 
 mainRouter.route("/")
@@ -48,7 +48,7 @@ mainRouter.route("/")
                             service: 'gmail',
                             auth: {
                                 user: 'sgpexamination@gmail.com',
-                                pass: 'sgpexamination123$%$'
+                                pass: process.env.password
                             }
                         });
 
