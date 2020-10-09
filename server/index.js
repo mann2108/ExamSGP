@@ -10,6 +10,7 @@ const details = require('./DB/schema');
 const registerRouter = require('./routes/webapp/register');
 const addUsersRouter = require('./routes/desktopApp/addUsers');
 const getUsersRouter = require('./routes/desktopApp/getUsers');
+const getOrgId = require('./routes/desktopApp/getOrgId');
 let uri = process.env.uri;
 let port = process.env.port;
 
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use("/", registerRouter);
 app.use("/addUser",addUsersRouter);
 app.use("/getUsers", getUsersRouter);
+app.use("/getOrgId", getOrgId);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');

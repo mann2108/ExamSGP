@@ -28,7 +28,8 @@ mainRouter.route("/")
             queryData.push({
                 "email" : body[i].email,
                 "passwd" : passwords[i],
-                "role" : body[i].role
+                "role" : body[i].role,
+                "orgId" : body[i].orgId  
             });
         }
         user.collection.find({"email" : { $in: emails }}).count()
@@ -47,6 +48,8 @@ mainRouter.route("/")
             } else {
                 res.status(200).json({"status" :countUserExist+" user/users from the file already exist, please check and generate again after updating the files !"})
             }
+        }).catch((err) => {
+            res.status(500);
         });
     });
 
