@@ -51,12 +51,12 @@ mainRouter.route("/")
                                 pass: 'sgpexamination123$%$'
                             }
                         });
-                        
+
                         let mailOptions = {
                             from: 'sgpexamination@gmail.com',
                             to: toEmail,
                             subject: 'Your password',
-                            text: `Your Organization has been successfully registered with our service. Here is your temporary password ${pass} & This is your Registered MailId from your Organization  ${toEmail}`
+                            text: `Your Organization has been successfully registered with our service. Here is your temporary password ${pwd} & This is your Registered MailId from your Organization  ${toEmail}`
                         }
                         transporter.sendMail(mailOptions, (err, info) => {
                             if (err) {
