@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import AdminHeader from './AdminHeader';
 import { Breadcrumb, BreadcrumbItem, Jumbotron } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 class AdminDashboard extends Component {
     // constructor(props) {
     //     super(props);

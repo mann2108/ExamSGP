@@ -4,7 +4,7 @@ const shell = require('electron').shell;
 const axios = require('axios');
 import history from './history';
 // import Cookies from 'js-cookie';
-const { session } = require('electron')
+// const { session } = require('electron')
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -96,7 +96,7 @@ class Home extends Component {
                     <hr className="my-2" />
                     <p>Login to continue ...</p>
                     <p className="lead">
-                        <Button color="primary" onClick={this.handleUrlRedirect('https://github.com/mann2108')}>Learn More</Button>
+                        <Button color="primary" onClick={this.handleUrlRedirect('http://localhost:3000/')}>Learn More</Button>
                     </p>
                 </Jumbotron>
                 <Form style={{ marginLeft: 200, marginRight: 200 }} onSubmit={this.handleSubmit}>

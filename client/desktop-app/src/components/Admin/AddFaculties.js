@@ -5,6 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from 'react-router-dom';
 import { ExcelRenderer } from 'react-excel-renderer';
 const axios = require('axios');
+const shell = require('electron').shell;
 class AddFaculties extends Component {
     constructor(props) {
         super(props);

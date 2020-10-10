@@ -4,6 +4,7 @@ import { Breadcrumb, BreadcrumbItem, Jumbotron, Table, Button } from 'reactstrap
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from 'react-router-dom';
 import { ExcelRenderer } from 'react-excel-renderer';
+const shell = require('electron').shell;
 const axios = require('axios');
 class AddStudent extends Component {
     constructor(props) {
