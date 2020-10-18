@@ -3,8 +3,7 @@ import { Jumbotron, Button, Form, FormGroup, Label, Input, FormText } from 'reac
 const shell = require('electron').shell;
 const axios = require('axios');
 import history from './history';
-// import Cookies from 'js-cookie';
-const { session } = require('electron')
+require('electron-cookies');
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -35,6 +34,9 @@ class Home extends Component {
             axios.post("http://localhost:5000/signin", {admin_users})
             .then((data) => {
                 if(data.data.role==="admin") {
+                    document.cookie = 'email='+data.data.email;
+                    document.cookie = 'role='+data.data.role;
+                    document.cookie = 'orgId='+data.data.orgId;
                     history.push('/admin');
                 } else if(data.data.role==="student") {
                     history.push("/student");
@@ -47,39 +49,7 @@ class Home extends Component {
             .catch((err) => {
                 console.log(err);
                 alert("Sorry, email and password are incorrect!");
-            })
-            
-            // const cookie = { url: '/', name: 'dummy_name', value: 'dummy' }
-            // session.defaultSession.cookies.set(cookie)
-            // .then(() => {
-            //     console.log("done");
-            // }, (error) => {
-            //     console.error(error)
-            // })
-            // storage.setItem(`myCat`, `Tom`);
-            // let cat = storage.getItem(`myCat`);
-            // console.log(cat);
-            // axios.post("http://localhost:5000/getOrgId", {email : email1})
-            // .then((data) => {
-            //     console.log(data);
-            //     if(data.data.role==="admin") {
-            //         history.push({
-            //             pathname: '/admin',
-            //             state: { detail: "woww" }
-            //         });
-            //         // history.push("/admin");
-            //     } else if(data.data.role==="student") {
-            //         history.push("/student");
-            //     } else if(data.data.role==="faculty") {
-            //         history.push("/faculty");
-            //     } else {
-            //         alert("You are super admin use your web portal for login");
-            //     }
-            // })
-            // .catch((err) => {
-            //     alert("Sorry, email and password are incorrect!");
-            // })
-
+            });
 
             } else {
                 alert("Email is not in valid format!")
@@ -96,17 +66,17 @@ class Home extends Component {
                     <hr className="my-2" />
                     <p>Login to continue ...</p>
                     <p className="lead">
-                        <Button color="primary" onClick={this.handleUrlRedirect('https://github.com/mann2108')}>Learn More</Button>
+                        <Button color="primary" onClick={this.handleUrlRedirect('http://localhost:3000/')}>Learn More</Button>
                     </p>
                 </Jumbotron>
                 <Form style={{ marginLeft: 200, marginRight: 200 }} onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label for="email">Email</Label>
-                        <Input type="email" name="email" id="email" placeholder="email"/>
+                        <Input type="email" name="email" id="email" placeholder="email" value="17it050@charusat.edu.in"/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="password">Password</Label>
-                        <Input type="password" name="password" id="password" placeholder="password"/>
+                        <Input type="password" name="password" id="password" placeholder="password" value="1/KmyW*F7x"/>
                     </FormGroup>
                     <Button color="primary">Submit</Button>
                 </Form>

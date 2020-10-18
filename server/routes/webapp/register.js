@@ -55,32 +55,24 @@ mainRouter.route("/signup")
 
 mainRouter.route("/signin")
     .post((req, res, next) => {
-        let adminUser = {
-            email: req.body.admin_users.email,
-            passwd: req.body.admin_users.passwd
-        };
         var query = user.find({ $and: [{ email: { $eq: req.body.admin_users.email } }, { passwd: { $eq: req.body.admin_users.passwd } }] });
         query.exec((err, someValue) => {
+            console.log(someValue);
             if (err) {
                 next(err);
             }
             else {
-
                 if (someValue.length) {
                     console.log(someValue[0].role)
                     res.statusCode = 200;
                     res.setHeader('Content-Type', 'application/json');
-                    res.json({ "statusMessage": "Login Successful", "role": someValue[0].role });
-
+                    res.json({ "statusMessage": "Login Successful", "role": someValue[0].role, "email": someValue[0].email, "orgId": someValue[0].orgId});
                 }
                 else {
                     res.status(401).send({ error: 'Incorrect Credentials' });
                 }
-
             }
         })
-
-
     });
 
 mainRouter.route("/dashboard")
