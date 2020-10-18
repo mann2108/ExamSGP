@@ -126,6 +126,7 @@ export default class dashboard extends React.Component {
             open: false,
             setOpen: true,
             classes: useStyles,
+            currentView: 'pending',
         }
 
     }
@@ -147,6 +148,13 @@ export default class dashboard extends React.Component {
     }
 
     renderDetails = (value, index) => {
+        let style;
+        if (this.state.currentView === 'pending') {
+            style = false
+        }
+        else {
+            style = true
+        }
         return (
             <tr key={index}>
                 <td>{value.firstname} </td>
@@ -161,10 +169,10 @@ export default class dashboard extends React.Component {
                 </td>
                 <td>{value.university}</td>
                 <td>
-                    <Button color="primary" onClick={() => this.ff(value)} >Yes</Button>
+                    <Button color="primary" disabled={style} onClick={() => this.ff(value)} >Yes</Button>
                 </td>
                 <td>
-                    <Button color="danger" onClick={() => this.fail(value)}>No</Button>
+                    <Button color="danger" disabled={style} onClick={() => this.fail(value)}>No</Button>
                 </td>
             </tr >
         )
@@ -202,7 +210,8 @@ export default class dashboard extends React.Component {
             .then((res) => {
                 let values = res.data;
                 this.setState({
-                    userDetails: values
+                    userDetails: values,
+                    currentView: 'accepted'
                 });
             })
             .catch((err) => console.log(err));
@@ -214,7 +223,8 @@ export default class dashboard extends React.Component {
             .then((res) => {
                 let values = res.data;
                 this.setState({
-                    userDetails: values
+                    userDetails: values, 
+                    currentView: 'rejected'
                 });
             })
             .catch((err) => console.log(err))
@@ -227,7 +237,8 @@ export default class dashboard extends React.Component {
                 let values = res.data;
                 let details = [];
                 this.setState({
-                    userDetails: values
+                    userDetails: values,
+                    currentView: 'pending'
                 })
             })
             .catch((err) => console.log(err));

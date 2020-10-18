@@ -4,6 +4,8 @@ const shell = require('electron').shell;
 const axios = require('axios');
 import history from './history';
 require('electron-cookies');
+// import Cookies from 'js-cookie';
+// const { session } = require('electron')
 class Home extends Component {
     constructor(props) {
         super(props);

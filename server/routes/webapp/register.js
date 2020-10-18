@@ -145,7 +145,7 @@ mainRouter.route("/confirmation")
                                     });
                                     let mailOptions = {
                                         from: 'sgpexamination@gmail.com',
-                                        to: 'jeet3766@gmail.com',
+                                        to: req.body.details.email,
                                         subject: 'Application Accepted',
                                         text: `Your Organization has been successfully registered with our service. Now you can create an exam paper with all sorts of functions which are avaiable with our system. Here is your temporary password ${password} & This is your Registered MailId from your Organization  ${req.body.details.email}`
                                     }
