@@ -15,10 +15,25 @@ class AddStudent extends Component {
             uploadedFlag: false,
             showSpinner: false,
             showMessage: "none",
-            message: ""
+            message: "",
+            cookie: ""
         }
         this.fileHandler = this.fileHandler.bind(this);
         this.addStudents = this.addStudents.bind(this);
+    }
+
+    componentDidMount() {
+        let temp = document.cookie.split("; ");
+        let email = temp[0].split("=")[1];
+        let role = temp[1].split("=")[1];
+        let orgId = temp[2].split("=")[1];
+        this.setState({
+            cookie : {
+                email : email,
+                role : role,
+                orgId : orgId
+            }
+        });
     }
 
     addStudents = () => {
@@ -33,7 +48,8 @@ class AddStudent extends Component {
             if (!this.state.rows[i][0]) break;
             reqBody.push({
                 email: this.state.rows[i][3],
-                role: "student"
+                role: "student",
+                orgId: this.state.cookie.orgId
             });
         }
         var self = this;
