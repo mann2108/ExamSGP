@@ -3,6 +3,7 @@ import { Jumbotron, Button, Form, FormGroup, Label, Input, FormText } from 'reac
 const shell = require('electron').shell;
 const axios = require('axios');
 import history from './history';
+require('electron-cookies');
 // import Cookies from 'js-cookie';
 // const { session } = require('electron')
 class Home extends Component {
@@ -35,6 +36,8 @@ class Home extends Component {
             axios.post("http://localhost:5000/signin", {admin_users})
             .then((data) => {
                 if(data.data.role==="admin") {
+                    document.cookie = `key=${email1};`
+                    console.log(document.cookie)
                     history.push('/admin');
                 } else if(data.data.role==="student") {
                     history.push("/student");

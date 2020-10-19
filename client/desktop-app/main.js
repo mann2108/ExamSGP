@@ -12,7 +12,7 @@ if (debug) reload(path.join(__dirname, 'dist'))
 function createWindow() {
 
     mainWindow = new BrowserWindow({ width: 800, height: 600 })
-
+    mainWindow.setContentProtection(true)
     mainWindow.setMenu(null)
     mainWindow.setTitle(require('./package.json').name)
     if (debug) mainWindow.openDevTools()
