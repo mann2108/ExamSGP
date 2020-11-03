@@ -81,12 +81,12 @@ class Home extends Component {
                     <FormGroup>
                         <Label for="email">Email</Label>
                         {/* value="17it051@charusat.edu.in" */}
-                        <Input type="email" name="email" id="email" placeholder="email"/>
+                        <Input type="email" name="email" id="email" placeholder="email" value="17it051@charusat.edu.in" />
                     </FormGroup>
                     <FormGroup>
                         <Label for="password">Password</Label>
                         {/* value="B=oqVKa3us" */}
-                        <Input type="password" name="password" id="password" placeholder="password"/>
+                        <Input type="password" name="password" id="password" placeholder="password" value="b!+%j:e^ai"/>
                     </FormGroup>
                     <Button color="primary">Submit</Button>
                 </Form>
