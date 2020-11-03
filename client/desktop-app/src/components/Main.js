@@ -14,6 +14,7 @@ import FacultyDashboard from './Faculty/FacultyDashboard';
 import StudentDashboard from './Student/StudentDashboard';
 import FacultyCreateExam from './Faculty/CreateExams';
 import FacultyViewExam from './Faculty/ViewExams';
+import StudentViewExam from './Student/ViewExam';
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -39,6 +40,7 @@ class Main extends Component {
                         <Route exact path="/admin/display/students" component={() => <DisplayStudents />}></Route>
                         <Route exact path="/faculty/createExam" component={() => <FacultyCreateExam />}></Route>
                         <Route exact path="/faculty/viewExam" component={() => <FacultyViewExam />}></Route>
+                        <Route exact path="/student/viewExam" component={() => <StudentViewExam />}></Route>
                         <Route exact path="/*" component={() => <Home />}></Route>
                     </Switch>
                 </Fragment>

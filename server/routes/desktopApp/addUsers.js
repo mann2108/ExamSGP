@@ -17,7 +17,6 @@ mainRouter.route("/")
             length: 10,
             uppercase: true,
             numbers: true,
-            symbols: true
         });
         let queryData  = [];
         let queryData2  = [];

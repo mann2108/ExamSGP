@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-// import FacultyHeader from './FacultyHeader';
+import StudentHeader from './StudentHeader';
 import { Breadcrumb, BreadcrumbItem, Jumbotron } from 'reactstrap';
 import { Link } from 'react-router-dom';
 class StudentDashboard extends Component {
@@ -7,7 +7,7 @@ class StudentDashboard extends Component {
         return (
             <Fragment>
                 <div className="wrapper">
-                    {/* <FacultyHeader /> */}
+                <StudentHeader />
                     <div id="content">
                         <div className="row">
                             <Breadcrumb>
@@ -23,7 +23,7 @@ class StudentDashboard extends Component {
                             <div>
                                 <h1>Welcome.. Student</h1>
                                 <p>
-                                    All the best for your exams!
+                                    Student can give exams assigned by faculties.
                                 </p>
                             </div>
                         </Jumbotron>
