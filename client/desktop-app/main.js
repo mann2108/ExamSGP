@@ -1,9 +1,11 @@
 const { app, BrowserWindow, Menu } = require('electron')
 const reload = require('electron-reload')
 const path = require('path')
+const fs = require('fs')
 const url = require('url')
 const debug = /--debug/.test(process.argv[2])
 const electron = require('electron')
+// const dialog = require('electron').remote.dialog;
 
 let mainWindow
 
