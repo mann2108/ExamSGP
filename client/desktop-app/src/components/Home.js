@@ -41,8 +41,14 @@ class Home extends Component {
                     document.cookie = 'orgId='+data.data.orgId;
                     history.push('/admin');
                 } else if(data.data.role==="student") {
+                    document.cookie = 'email='+data.data.email;
+                    document.cookie = 'role='+data.data.role;
+                    document.cookie = 'orgId='+data.data.orgId;
                     history.push("/student");
                 } else if(data.data.role==="faculty") {
+                    document.cookie = 'email='+data.data.email;
+                    document.cookie = 'role='+data.data.role;
+                    document.cookie = 'orgId='+data.data.orgId;
                     history.push("/faculty");
                 } else {
                     alert("You are super admin use your web portal for login");
@@ -74,11 +80,13 @@ class Home extends Component {
                 <Form style={{ marginLeft: 200, marginRight: 200 }} onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label for="email">Email</Label>
-                        <Input type="email" name="email" id="email" placeholder="email" value="17it050@charusat.edu.in"/>
+                        {/* value="17it051@charusat.edu.in" */}
+                        <Input type="email" name="email" id="email" placeholder="email" value="mannmehta2199@gmail.com" />
                     </FormGroup>
                     <FormGroup>
                         <Label for="password">Password</Label>
-                        <Input type="password" name="password" id="password" placeholder="password" value="1/KmyW*F7x"/>
+                        {/* value="B=oqVKa3us" */}
+                        <Input type="password" name="password" id="password" placeholder="password" value="tu,33w0fd"/>
                     </FormGroup>
                     <Button color="primary">Submit</Button>
                 </Form>
