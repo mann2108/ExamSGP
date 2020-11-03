@@ -12,9 +12,14 @@ let mainWindow
 if (debug) reload(path.join(__dirname, 'dist'))
 
 function createWindow() {
-
-    mainWindow = new BrowserWindow({ width: 800, height: 600 })
+    mainWindow = new BrowserWindow({
+        width: 1010,
+        height: 700,
+        minWidth: 1010,
+        minHeight: 700,
+    })
     mainWindow.setContentProtection(true)
+
     mainWindow.setMenu(null)
     mainWindow.setTitle(require('./package.json').name)
     if (debug) mainWindow.openDevTools()
@@ -24,7 +29,6 @@ function createWindow() {
         protocol: 'file:',
         slashes: true
     }))
-    console.log(electron.screen.getAllDisplays());
     mainWindow.on('closed', () => mainWindow = null)
 }
 
