@@ -75,7 +75,7 @@ class ViewExams extends Component {
                 </p>
             );
         } else if (this.state.exams.length === 0) {
-            showshowExams.push(
+            showExams.push(
                 <p>
                     No exam found!
                 </p>

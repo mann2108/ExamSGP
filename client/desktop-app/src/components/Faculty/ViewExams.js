@@ -26,10 +26,7 @@ class ViewExams extends Component {
                 orgId : orgId,
                 exams : ""
             },
-        });
-
-        this.setState({
-            loader: true
+            loader:true
         });
 
         let self = this;
@@ -61,7 +58,7 @@ class ViewExams extends Component {
                 </p>
             );
         } else if (this.state.exams.length === 0) {
-            showshowExams.push(
+            showExams.push(
                 <p>
                     No exam found!
                 </p>

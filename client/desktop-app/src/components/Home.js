@@ -4,8 +4,6 @@ const shell = require('electron').shell;
 const axios = require('axios');
 import history from './history';
 require('electron-cookies');
-// import Cookies from 'js-cookie';
-// const { session } = require('electron')
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -80,13 +78,11 @@ class Home extends Component {
                 <Form style={{ marginLeft: 200, marginRight: 200 }} onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label for="email">Email</Label>
-                        {/* value="17it051@charusat.edu.in" */}
-                        <Input type="email" name="email" id="email" placeholder="email" value="mannmehta2199@gmail.com" />
+                        <Input type="email" name="email" id="email" placeholder="email" />
                     </FormGroup>
                     <FormGroup>
                         <Label for="password">Password</Label>
-                        {/* value="B=oqVKa3us" */}
-                        <Input type="password" name="password" id="password" placeholder="password" value="tu,33w0fd"/>
+                        <Input type="password" name="password" id="password" placeholder="password"/>
                     </FormGroup>
                     <Button color="primary">Submit</Button>
                 </Form>

@@ -8,7 +8,6 @@ const electron = require('electron')
 // const dialog = require('electron').remote.dialog;
 
 let mainWindow
-
 if (debug) reload(path.join(__dirname, 'dist'))
 
 function createWindow() {
@@ -31,6 +30,22 @@ function createWindow() {
     }))
     mainWindow.on('closed', () => mainWindow = null)
 }
+
+
+const template = [
+    {
+       role: 'help',
+       submenu: [
+          {
+             label: 'Learn More'
+          }
+       ]
+    }
+ ]
+ 
+ const menu = Menu.buildFromTemplate(template)
+ Menu.setApplicationMenu(menu)
+
 
 app.on('ready', createWindow)
 
