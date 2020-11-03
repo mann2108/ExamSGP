@@ -9,6 +9,8 @@ const electron = require('electron')
 
 let mainWindow
 
+app.setPath("userData", __dirname + "/saved_recordings")
+
 if (debug) reload(path.join(__dirname, 'dist'))
 
 function createWindow() {
