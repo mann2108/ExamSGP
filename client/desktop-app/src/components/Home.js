@@ -80,11 +80,13 @@ class Home extends Component {
                 <Form style={{ marginLeft: 200, marginRight: 200 }} onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label for="email">Email</Label>
-                        <Input type="email" name="email" id="email" placeholder="email" value="17it051@charusat.edu.in"/>
+                        {/* value="17it051@charusat.edu.in" */}
+                        <Input type="email" name="email" id="email" placeholder="email"/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="password">Password</Label>
-                        <Input type="password" name="password" id="password" placeholder="password" value="A[*bY8?l_f"/>
+                        {/* value="B=oqVKa3us" */}
+                        <Input type="password" name="password" id="password" placeholder="password"/>
                     </FormGroup>
                     <Button color="primary">Submit</Button>
                 </Form>

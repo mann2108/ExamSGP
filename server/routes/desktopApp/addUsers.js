@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const express = require('express');
 const user = require('../../DB/userSchema');
+const forms = require('../../DB/forms')
 const path = require('path');
 const generator = require('generate-password');
 const mainRouter = express.Router();
@@ -9,19 +10,17 @@ const nodemailer = require('nodemailer');
 mainRouter.use(bodyParser.json());
 require('dotenv/config');
 var db = mongoose.connection;
-
 mainRouter.route("/")
     .post((req, res) => {
         let body = req.body.users;
-        
         var passwords = generator.generateMultiple(body.length, {
             length: 10,
             uppercase: true,
             numbers: true,
             symbols: true
         });
-        
         let queryData  = [];
+        let queryData2  = [];
         let emails = [];
         for(let i=0;i<body.length;i++) {
             emails.push(body[i].email);
@@ -31,6 +30,10 @@ mainRouter.route("/")
                 "role" : body[i].role,
                 "orgId" : body[i].orgId  
             });
+            queryData2.push({
+                "email":body[i].email,
+                "exam":[]
+            })
         }
         user.collection.find({"_id" : {$in: [queryData[0].orgId]}}).count().then((data) => {
             console.log(data);
@@ -41,6 +44,13 @@ mainRouter.route("/")
         .then((countUserExist) => {
             console.log(countUserExist);
             if(countUserExist===0) {
+                forms.collection.insertMany(queryData2)
+                .then(() => {
+                    console.log("forms inserted");
+                })
+                .catch((err)=>{
+                    console.log("forms error",err);
+                })
                 user.collection.insertMany(queryData)
                 .then(() => {
                     console.log("success");

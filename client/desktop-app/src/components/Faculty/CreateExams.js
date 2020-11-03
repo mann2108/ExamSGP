@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import FacultyHeader from './FacultyHeader';
-import { Breadcrumb, BreadcrumbItem, Jumbotron, Table, Button } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Jumbotron, Table, Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from 'react-router-dom';
 import { ExcelRenderer } from 'react-excel-renderer';
@@ -37,10 +37,17 @@ class CreateExam extends Component {
     }
 
     createExam = () => {
+        
         let formURL = document.getElementById("formLink").value;
-        if(!formURL) {
-            alert("Please enter google form link");
+        let sbj = document.getElementById("subjectName").value;
+        let date = document.getElementById("examDate").value;
+        let dur = document.getElementById("duration").value;
+        let des = document.getElementById("description").value;
+
+        if(!formURL || !sbj || !date || !dur) {
+            alert("Please enter the exam data correctly !");
         } else {
+            alert("success");
             this.setState({
                 showSpinner: true,
                 showMessage: "none",
@@ -48,15 +55,15 @@ class CreateExam extends Component {
             });
 
             let reqBody = [];
-            reqBody.push({
-                email : this.state.cookie.email,
-                formLink : formURL
-            })
             for (let i = 1; i < this.state.rows.length; i++) {
                 if (!this.state.rows[i][0]) break;
                 reqBody.push({
                     email: this.state.rows[i][1],
-                    formLink : formURL
+                    formLink : formURL,
+                    subjectName : sbj,
+                    examDate : date,
+                    examDuration : dur,
+                    examDescription : des
                 });
             }
             var self = this;
@@ -130,14 +137,39 @@ class CreateExam extends Component {
                             {data}
                         </tbody>
                     </Table>
-                    Form Link : <input id="formLink" name="formLink" type="text"></input><br />
-                    <Button color="success" onClick={() => this.createExam()} size="lg">Create Exam</Button>{' '}
-                    <ClipLoader
-                        size={50}
-                        color={"#123abc"}
-                        loading={this.state.showSpinner}
-                    />
-                    <p style={{ display: this.state.showMessage }}>{this.state.message}</p>
+                    {/* <Button  onClick={() => this.createExam()} size="lg">Create Exam</Button>{' '} */}
+                    
+                    <FormGroup>
+                        <Label for="formLink">Form Link</Label>
+                        <Input type="url" name="formLink" id="formLink" placeholder="form link" required/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="subjectName">Subject Name</Label>
+                        <Input type="text" name="subjectName" id="subjectName" placeholder="subject name" required/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="examDate">Exam Date</Label>
+                        <Input type="date" name="examDate" id="examDate" placeholder="exam date" required/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="duration">Duration</Label>
+                        <Input type="number" step="0.01" name="duration" id="duration" placeholder="duration" required/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="description">Description(Optional)</Label>
+                        <Input type="text" name="description" id="description" placeholder="description" />
+                    </FormGroup>
+                    <center><Button color="success" onClick={() => this.createExam()} size="lg" color="primary">Create Exam</Button></center>
+                    
+                    <center>
+                        <ClipLoader
+                            size={50}
+                            color={"#123abc"}
+                            loading={this.state.showSpinner}
+                        />
+                        <p style={{ display: this.state.showMessage }}>{this.state.message}</p>
+                    </center>
+                   
 
                 </div>
             );
