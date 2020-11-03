@@ -1,22 +1,24 @@
 const { app, BrowserWindow, Menu } = require('electron')
 const reload = require('electron-reload')
 const path = require('path')
+const fs = require('fs')
 const url = require('url')
 const debug = /--debug/.test(process.argv[2])
 const electron = require('electron')
+// const dialog = require('electron').remote.dialog;
 
 let mainWindow
 
 if (debug) reload(path.join(__dirname, 'dist'))
 
 function createWindow() {
-
     mainWindow = new BrowserWindow({
         width: 1010,
         height: 700,
         minWidth: 1010,
         minHeight: 700,
     })
+    mainWindow.setContentProtection(true)
 
     mainWindow.setMenu(null)
     mainWindow.setTitle(require('./package.json').name)
