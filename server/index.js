@@ -11,6 +11,8 @@ const registerRouter = require('./routes/webapp/register');
 const addUsersRouter = require('./routes/desktopApp/addUsers');
 const getUsersRouter = require('./routes/desktopApp/getUsers');
 const getOrgId = require('./routes/desktopApp/getOrgId');
+const createExam = require('./routes/desktopApp/createExam');
+const viewExam = require('./routes/desktopApp/viewExam');
 let uri = process.env.uri;
 let port = process.env.port;
 
@@ -29,7 +31,8 @@ app.use("/", registerRouter);
 app.use("/addUser",addUsersRouter);
 app.use("/getUsers", getUsersRouter);
 app.use("/getOrgId", getOrgId);
-
+app.use("/createExam", createExam);
+app.use("/viewExam", viewExam);
 app.use((req, res, next) => {
     const error = new Error('Not Found');
     error.status = 404;

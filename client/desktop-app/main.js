@@ -9,7 +9,10 @@ const electron = require('electron')
 
 let mainWindow
 
+
 app.setPath("userData", __dirname + "/saved_recordings")
+
+
 
 if (debug) reload(path.join(__dirname, 'dist'))
 
@@ -33,6 +36,22 @@ function createWindow() {
     }))
     mainWindow.on('closed', () => mainWindow = null)
 }
+
+
+const template = [
+    {
+       role: 'help',
+       submenu: [
+          {
+             label: 'Learn More'
+          }
+       ]
+    }
+ ]
+ 
+ const menu = Menu.buildFromTemplate(template)
+ Menu.setApplicationMenu(menu)
+
 
 app.on('ready', createWindow)
 
