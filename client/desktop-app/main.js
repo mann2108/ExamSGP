@@ -20,7 +20,7 @@ function createWindow() {
         minWidth: 1010,
         minHeight: 700,
     })
-    mainWindow.setContentProtection(true)
+    // mainWindow.setContentProtection(true)
 
     mainWindow.setMenu(null)
     mainWindow.setTitle(require('./package.json').name)

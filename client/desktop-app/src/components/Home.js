@@ -8,75 +8,11 @@ require('electron-cookies');
 const path = require('path');
 const fs = require('fs');
 
-// import Cookies from 'js-cookie';
-// const { session } = require('electron')
 class Home extends Component {
     constructor(props) {
         super(props);
-        // const storage_stream = fs.createWriteStream(path);
         this.handleUrlRedirect = this.handleUrlRedirect.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        // navigator.getUserMedia({video: true, audio: true}, (localMediaStream) => {
-        //     let video = document.querySelector('video')
-        //     video.src = window.URL.createObjectURL(localMediaStream)
-        //     video.onloadedmetadata = (e) => {
-        //         console.log(e.target.src)
-        //     };
-        // }, (err) => console.log(err));
-        let constraintObj = {
-            audio: true,
-            video: true
-        }
-        navigator.mediaDevices.getUserMedia(constraintObj)
-            .then(mediaStreamObj => {
-                let video = document.querySelector('video');
-                if ("srcObject" in video) {
-                    video.srcObject = mediaStreamObj;
-                }
-                video.onloadedmetadata = (ev) => {
-                    video.play();
-                }
-                let mediaRecorder = new MediaRecorder(mediaStreamObj);
-                let chunks = []
-                mediaRecorder.start();
-                mediaRecorder.ondataavailable = (ev) => {
-                    chunks.push(ev.data);
-                }
-                console.log(chunks);
-                let vid1 = document.getElementById('jet1');
-                let stop = document.getElementById('asd');
-                stop.addEventListener('click', (ev) => {
-                    mediaRecorder.stop();
-                })
-                mediaRecorder.onstop = (ev) => {
-                    let blob = new Blob(chunks, { 'type': 'video/webm' });
-                    let reader = new FileReader();
-                    reader.onload = () => {
-                        let buffer = Buffer.from (reader.result);
-                        fs.writeFile("jeetexam.mp4", buffer, {}, (err, res) => {
-                            if (err) {
-                                console.log('error in saving')
-                            }
-                            else {
-                                console.log('video saved')
-                            }
-                        })
-                    }
-                    reader.readAsArrayBuffer(blob);
-                    // fs.writeFile("examinationsgpvideo", chunks.data, (err) => {
-                    //     if (err) {
-                    //         console.log("error in storing file locally")
-                    //     }
-                    //     else {
-                    //         console.log("file saved successfully")
-                    //     }
-                    // })
-                    chunks = [];
-                    let videoUrl1 = window.URL.createObjectURL(blob);
-                    vid1.src = videoUrl1;
-                }
-
-            })
     }
 
     handleUrlRedirect = (url) => () => {
@@ -147,11 +83,7 @@ class Home extends Component {
                         <Input type="password" name="password" id="password" placeholder="password" value="1/KmyW*F7x" />
                     </FormGroup>
                     <Button color="primary">Submit</Button>
-                    
                 </Form>
-                <video autoPlay></video>
-                    <button id="asd">asd</button>
-                    <video autoPlay id="jet1"></video>
             </Fragment>
         );
     }
