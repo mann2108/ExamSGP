@@ -1,9 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import { Jumbotron, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Stream } from 'stream';
 const shell = require('electron').shell;
 const axios = require('axios');
 import history from './history';
 require('electron-cookies');
+
+const path = require('path');
+const fs = require('fs');
+
+
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -19,11 +26,12 @@ class Home extends Component {
         event.preventDefault();
         let email1 = document.getElementById("email").value;
         let password1 = document.getElementById("password").value;
-        
-        if(email1==="" || password1==="") {
+
+        if (email1 === "" || password1 === "") {
             alert("Email and Password are mandatory fields");
         } else {
             let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
             if(emailPattern.test(email1)) {
                 
             let admin_users = {
@@ -56,6 +64,7 @@ class Home extends Component {
                 console.log(err);
                 alert("Sorry, email and password are incorrect!");
             });
+
 
             } else {
                 alert("Email is not in valid format!")
