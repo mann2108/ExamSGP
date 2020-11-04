@@ -8,12 +8,7 @@ const electron = require('electron')
 // const dialog = require('electron').remote.dialog;
 
 let mainWindow
-
-
 app.setPath("userData", __dirname + "/saved_recordings")
-
-
-
 if (debug) reload(path.join(__dirname, 'dist'))
 
 function createWindow() {
