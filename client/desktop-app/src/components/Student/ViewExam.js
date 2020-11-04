@@ -3,7 +3,11 @@ import StudentHeader from './StudentHeader';
 import { Card, CardText, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from 'react-router-dom';
+const fs = require("fs");
 const axios = require('axios');
+
+
+
 class ViewExams extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +16,6 @@ class ViewExams extends Component {
             cookie : "",
             exams: ""
         }
-
         this.startExam = this.startExam.bind(this);
     }
 
@@ -26,6 +29,45 @@ class ViewExams extends Component {
           alwaysOnTop: true
         });
         win.loadURL(url);
+
+        let constraintObj = {
+            audio: true,
+            video: true
+        }
+        navigator.mediaDevices.getUserMedia(constraintObj)
+            .then(mediaStreamObj => {
+                let mediaRecorder = new MediaRecorder(mediaStreamObj);
+                let chunks = []
+                mediaRecorder.start();
+                mediaRecorder.ondataavailable = (ev) => {
+                    chunks.push(ev.data);
+                }
+                console.log(chunks);
+                win.on('closed', () => {   
+                    mediaRecorder.stop();
+                })
+                mediaRecorder.onstop = (ev) => {
+                    let blob = new Blob(chunks, { 'type': 'video/webm' });
+                    let reader = new FileReader();
+                    reader.onload = () => {
+                        let buffer = Buffer.from (reader.result);
+                        let fileName = new Date();
+                        
+                        fs.writeFile(fileName.toDateString()+".mp4", buffer, {}, (err, res) => {
+                            if (err) {
+                                console.log('error in saving')
+                            }
+                            else {
+                                console.log('video saved')
+                            }
+                        })
+                    }
+                    reader.readAsArrayBuffer(blob);
+                    chunks = [];
+                }
+
+            })
+
     }
     
     componentDidMount() {
